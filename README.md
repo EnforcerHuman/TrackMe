@@ -1,16 +1,2 @@
-# trackme
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# TrackMe
+TrackMe is a Flutter-based mobile application designed to track a user's location in real time, calculate total travel distance, and store trip data locally using Hive. The app also fetches and displays user details from a public API, demonstrating seamless integration of local data management, state management, and API handling.
