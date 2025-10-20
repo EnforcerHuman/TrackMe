@@ -1,6 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:hive/hive.dart';
+import 'package:trackme/common/models/location_model.dart';
+import 'package:trackme/core/constants/app_constants.dart';
+import 'package:trackme/core/utils/hive_setup.dart';
 import '../../core/errors/failures.dart';
 import '../../domain/entities/location_entity.dart';
 import '../../domain/usecases/track_location_usecase.dart';
@@ -54,6 +58,29 @@ class LocationNotifier extends ChangeNotifier {
   LocationNotifier(this._useCase);
 
   LocationState get state => _state;
+
+  // Future<void> assignLastTrip() async {
+  //   final box = HiveSetup.box;
+  //   if (box.isNotEmpty) {
+  //     final lastLocationData = box.getAt(box.length - 1);
+  //     if (lastLocationData != null) {
+  //       // final startLocationEntity = LocationEntity(latitude:lastLocationData. , longitude: longitude, timestamp: timestamp);
+  //       final lastLocationEntity = LocationEntity(
+  //         latitude: lastLocationData.latitude,
+  //         longitude: lastLocationData.longitude,
+  //         timestamp: DateTime.now(),
+  //         distance: 15,
+  //       );
+
+  //       _state = _state.copyWith(
+  //         totalDistance: lastLocationEntity.distance,
+  //         startLocation: lastLocationEntity,
+  //         currentLocation: lastLocationEntity,
+  //       );
+  //       notifyListeners();
+  //     }
+  //   }
+  // }
 
   Future<void> startTracking() async {
     try {

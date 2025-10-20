@@ -11,3 +11,15 @@ class LocationEntity {
     this.distance,
   });
 }
+
+class TripEntity {
+  final LocationEntity startLocation;
+  final LocationEntity endLocation;
+  final double totalDistance;
+
+  TripEntity({
+    required this.startLocation,
+    required this.endLocation,
+    required this.totalDistance,
+  });
+}
