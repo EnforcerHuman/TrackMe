@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:trackme/presentation/widgets/home_screen_widgets/continue_button.dart';
 import 'package:trackme/presentation/widgets/location_error.dart';
 import '../providers/location_provider.dart';
 import '../widgets/location_display_widget.dart';
@@ -15,16 +16,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     final locationState = context.watch<LocationNotifier>().state;
@@ -98,25 +89,7 @@ class _HomePageState extends State<HomePage> {
                     if (!locationState.isTracking &&
                         locationState.startLocation != null &&
                         locationState.currentLocation != null)
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () => _navigateToTripDetails(),
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(vertical: 16),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
-                          child: const Text(
-                            'Continue',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
+                      ContinueButton(onPressed: _navigateToTripDetails),
 
                     // Error Display
                     if (locationState.error != null)
