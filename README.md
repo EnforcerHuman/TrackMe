@@ -2,6 +2,15 @@
 
 Developer quickstart to install dependencies, run the app on different platforms, and produce release builds.
 
+### Clone
+Use HTTPS:
+
+```bash
+git clone https://github.com/EnforcerHuman/TrackMe.git
+cd trackme
+```
+
+
 ### Prerequisites
 - **Flutter SDK** (Stable channel). Install via `https://docs.flutter.dev/get-started/install` and add it to PATH.
 - **Dart** comes with Flutter.
@@ -75,3 +84,23 @@ Note: Due to system constraints, iOS setup is not included. Please run and test 
 - `android/`: Native Android project and build configuration
 - `ios/`: Native iOS project (not configured here)
 - `test/`: Unit and widget tests
+
+
+Features :
+
+
+- Location tracking with local persistence
+- Fetch and display users from a remote API
+- Material 3 UI with centralized theming
+- Error handling for Flutter and platform errors
+- Modular architecture with providers, repositories, and use cases
+
+### Usage & Flow
+1) Launch the app on Android (`flutter run -d android`).
+2) Grant location permissions when prompted.
+3) Home screen loads with two core capabilities:
+   - Location tracking: starts/stops via the `LocationNotifier` using `TrackLocationUseCase`, persisting updates via `LocationRepositoryImpl` and `LocationLocalDataSource` (Hive).
+   - Users list: fetched via `UserNotifier` using `GetUsersUseCase`, backed by `UserRepositoryImpl` and `UserRemoteDataSource` using `ApiClient`.
+4) Leave the app running to continue tracking as designed by the Home screen controls.
+5) Troubleshoot by checking logs for error messages surfaced by global error handlers.
+
