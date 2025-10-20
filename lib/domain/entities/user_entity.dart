@@ -13,3 +13,4 @@ class UserEntity {
     required this.status,
   });
 }
+

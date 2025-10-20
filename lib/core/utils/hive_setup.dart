@@ -8,11 +8,8 @@ class HiveSetup {
 
     // Register adapters
     Hive.registerAdapter(LocationDataModelAdapter());
-    Hive.registerAdapter(TripDataModelAdapter());
 
     // Open boxes
     await Hive.openBox<LocationDataModel>(AppConstants.locationDataBox);
-    await Hive.openBox<TripDataModel>(AppConstants.tripDataBox);
   }
 }
-

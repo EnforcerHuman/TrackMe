@@ -5,7 +5,6 @@ class AppConstants {
 
   // Hive
   static const String locationDataBox = 'location_data';
-  static const String tripDataBox = 'trip_data';
 
   // Location
   static const double defaultAccuracy = 10.0; // meters
@@ -17,4 +16,3 @@ class AppConstants {
   static const double buttonWidth = 200.0;
   static const double borderRadius = 12.0;
 }
-

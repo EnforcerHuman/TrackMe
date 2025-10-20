@@ -11,24 +11,3 @@ class LocationEntity {
     this.distance,
   });
 }
-
-class TripEntity {
-  final String id;
-  final LocationEntity startLocation;
-  final LocationEntity endLocation;
-  final double totalDistance;
-  final DateTime startTime;
-  final DateTime endTime;
-  final List<LocationEntity> locations;
-
-  const TripEntity({
-    required this.id,
-    required this.startLocation,
-    required this.endLocation,
-    required this.totalDistance,
-    required this.startTime,
-    required this.endTime,
-    required this.locations,
-  });
-}
-
