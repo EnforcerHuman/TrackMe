@@ -74,6 +74,26 @@ flutter build appbundle --release
 ### iOS
 Note: Due to system constraints, iOS setup is not included. Please run and test using the Android build. On macOS, you can later add iOS by opening `ios/` in Xcode and configuring signing.
 
+### Beta builds (Firebase App Distribution)
+Access pre-release Android builds here: [Firebase App Distribution invite link](https://appdistribution.firebase.dev/i/e5891d1d66548ca4)
+
+Join as a tester
+1) Share your Google account email with the maintainer to be added as a tester.
+2) Accept the invitation sent to your email.
+3) Open the invite link above and sign in with the same Google account.
+
+Install the build (Android)
+1) On the page, download the latest available APK.
+2) If prompted with "Install blocked", enable installs from unknown sources for your browser or Files app:
+   - Settings > Apps > Special app access > Install unknown apps > choose your app (e.g., Chrome/Files) > Allow
+3) Open the downloaded APK and install.
+4) For updates, revisit the same link and install the newer build (uninstall old build if signatures differ).
+
+Troubleshooting
+- Not authorized: ensure your Google account email has been added as a tester and you accepted the invite.
+- 404 or link expired: ask the maintainer for a fresh invite link.
+- Install blocked: enable "Install unknown apps" as noted above.
+
 ### Project structure
 - `lib/main.dart`: Application entrypoint
 - `lib/core/`: Base configurations (theme, routing, constants, dependency setup)
@@ -103,4 +123,6 @@ Features :
    - Users list: fetched via `UserNotifier` using `GetUsersUseCase`, backed by `UserRepositoryImpl` and `UserRemoteDataSource` using `ApiClient`.
 4) Leave the app running to continue tracking as designed by the Home screen controls.
 5) Troubleshoot by checking logs for error messages surfaced by global error handlers.
+
+
 
