@@ -16,4 +16,3 @@ class ApiClient {
 
   static Dio get instance => _dio;
 }
-

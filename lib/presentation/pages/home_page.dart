@@ -40,63 +40,87 @@ class _HomePageState extends State<HomePage> {
         }
       },
       child: Scaffold(
+        extendBodyBehindAppBar: true,
         appBar: AppBar(
-          title: const Text('TrackMe'),
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: const Text(
+            'TrackMe',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Location Display
-              LocationDisplayWidget(
-                startLocation: locationState.startLocation,
-                endLocation: locationState.currentLocation,
-                totalDistance: locationState.totalDistance,
-                isTracking: locationState.isTracking,
-              ),
-
-              const SizedBox(height: 40),
-
-              // Tracking Buttons
-              TrackingButtonsWidget(
-                isTracking: locationState.isTracking,
-                isLoading: locationState.isLoading,
-                onStart: () => context.read<LocationNotifier>().startTracking(),
-                onStop: () => context.read<LocationNotifier>().stopTracking(),
-              ),
-
-              const SizedBox(height: 40),
-
-              // Continue Button (only show when not tracking and has data)
-              if (!locationState.isTracking &&
-                  locationState.startLocation != null &&
-                  locationState.currentLocation != null)
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () => _navigateToTripDetails(),
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    child: const Text(
-                      'Continue',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+        body: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Color(0xFF667eea),
+                Color(0xFF764ba2),
+                Color(0xFFf093fb),
+                Color(0xFFf5576c),
+              ],
+              stops: [0.0, 0.3, 0.7, 1.0],
+            ),
+          ),
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Location Display
+                  LocationDisplayWidget(
+                    startLocation: locationState.startLocation,
+                    endLocation: locationState.currentLocation,
+                    totalDistance: locationState.totalDistance,
+                    isTracking: locationState.isTracking,
                   ),
-                ),
 
-              // Error Display
-              if (locationState.error != null)
-                LocationError(locationState: locationState),
-            ],
+                  const SizedBox(height: 40),
+
+                  // Tracking Buttons
+                  TrackingButtonsWidget(
+                    isTracking: locationState.isTracking,
+                    isLoading: locationState.isLoading,
+                    onStart:
+                        () => context.read<LocationNotifier>().startTracking(),
+                    onStop:
+                        () => context.read<LocationNotifier>().stopTracking(),
+                  ),
+
+                  const SizedBox(height: 40),
+
+                  // Continue Button (only show when not tracking and has data)
+                  if (!locationState.isTracking &&
+                      locationState.startLocation != null &&
+                      locationState.currentLocation != null)
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () => _navigateToTripDetails(),
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: const Text(
+                          'Continue',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+
+                  // Error Display
+                  if (locationState.error != null)
+                    LocationError(locationState: locationState),
+                ],
+              ),
+            ),
           ),
         ),
       ),
