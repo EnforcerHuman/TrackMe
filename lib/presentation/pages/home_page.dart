@@ -50,6 +50,7 @@ class _HomePageState extends State<HomePage> {
           elevation: 0,
         ),
         body: Container(
+          height: double.infinity,
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topLeft,
