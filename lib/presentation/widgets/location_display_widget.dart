@@ -18,6 +18,55 @@ class LocationDisplayWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+    final screenWidth = screenSize.width;
+    final isSmallScreen = screenWidth < 360;
+    final isMediumScreen = screenWidth >= 360 && screenWidth < 600;
+
+    // Responsive dimensions
+    final iconSize =
+        isSmallScreen
+            ? 20.0
+            : isMediumScreen
+            ? 22.0
+            : 24.0;
+    final titleFontSize =
+        isSmallScreen
+            ? 16.0
+            : isMediumScreen
+            ? 18.0
+            : 20.0;
+    final subtitleFontSize =
+        isSmallScreen
+            ? 12.0
+            : isMediumScreen
+            ? 13.0
+            : 14.0;
+    final statusFontSize =
+        isSmallScreen
+            ? 10.0
+            : isMediumScreen
+            ? 11.0
+            : 12.0;
+    final containerPadding =
+        isSmallScreen
+            ? 8.0
+            : isMediumScreen
+            ? 10.0
+            : 12.0;
+    final spacing =
+        isSmallScreen
+            ? 12.0
+            : isMediumScreen
+            ? 16.0
+            : 20.0;
+    final verticalSpacing =
+        isSmallScreen
+            ? 16.0
+            : isMediumScreen
+            ? 20.0
+            : 24.0;
+
     return GlassCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,7 +74,7 @@ class LocationDisplayWidget extends StatelessWidget {
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.all(12),
+                padding: EdgeInsets.all(containerPadding),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors:
@@ -48,17 +97,18 @@ class LocationDisplayWidget extends StatelessWidget {
                 child: Icon(
                   isTracking ? Icons.my_location : Icons.location_on,
                   color: Colors.white,
-                  size: 24,
+                  size: iconSize,
                 ),
               ),
-              const SizedBox(width: 16),
+              SizedBox(width: spacing),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       isTracking ? 'Tracking Active' : 'Trip Details',
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      style: TextStyle(
+                        fontSize: titleFontSize,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
@@ -70,16 +120,16 @@ class LocationDisplayWidget extends StatelessWidget {
                           : 'Ready to start your journey',
                       style: TextStyle(
                         color: Colors.white.withOpacity(0.8),
-                        fontSize: 14,
+                        fontSize: subtitleFontSize,
                       ),
                     ),
                   ],
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 6,
+                padding: EdgeInsets.symmetric(
+                  horizontal: isSmallScreen ? 8 : 12,
+                  vertical: isSmallScreen ? 4 : 6,
                 ),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
@@ -102,16 +152,16 @@ class LocationDisplayWidget extends StatelessWidget {
                 ),
                 child: Text(
                   isTracking ? 'LIVE' : 'READY',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.white,
-                    fontSize: 12,
+                    fontSize: statusFontSize,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 24),
+          SizedBox(height: verticalSpacing),
 
           if (startLocation != null) ...[
             _buildGlassLocationRow(
@@ -119,8 +169,9 @@ class LocationDisplayWidget extends StatelessWidget {
               '${startLocation!.latitude.toStringAsFixed(6)}, ${startLocation!.longitude.toStringAsFixed(6)}',
               Icons.play_arrow,
               [Colors.green, Colors.green.shade400],
+              context,
             ),
-            const SizedBox(height: 12),
+            SizedBox(height: spacing),
           ],
 
           if (endLocation != null) ...[
@@ -129,13 +180,20 @@ class LocationDisplayWidget extends StatelessWidget {
               '${endLocation!.latitude.toStringAsFixed(6)}, ${endLocation!.longitude.toStringAsFixed(6)}',
               Icons.location_on,
               [Colors.blue, Colors.blue.shade400],
+              context,
             ),
-            const SizedBox(height: 12),
+            SizedBox(height: spacing),
           ],
 
           if (isTracking || totalDistance > 0) ...[
             Container(
-              padding: const EdgeInsets.all(20),
+              padding: EdgeInsets.all(
+                isSmallScreen
+                    ? 16
+                    : isMediumScreen
+                    ? 18
+                    : 20,
+              ),
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
                   colors: [Colors.blue, Colors.purple],
@@ -154,18 +212,24 @@ class LocationDisplayWidget extends StatelessWidget {
               child: Row(
                 children: [
                   Container(
-                    padding: const EdgeInsets.all(12),
+                    padding: EdgeInsets.all(
+                      isSmallScreen
+                          ? 8
+                          : isMediumScreen
+                          ? 10
+                          : 12,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.2),
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: const Icon(
+                    child: Icon(
                       Icons.straighten,
                       color: Colors.white,
-                      size: 24,
+                      size: iconSize,
                     ),
                   ),
-                  const SizedBox(width: 16),
+                  SizedBox(width: spacing),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -174,16 +238,21 @@ class LocationDisplayWidget extends StatelessWidget {
                           'Total Distance',
                           style: TextStyle(
                             color: Colors.white.withOpacity(0.9),
-                            fontSize: 14,
+                            fontSize: subtitleFontSize,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
                         const SizedBox(height: 4),
                         Text(
                           '${totalDistance.toStringAsFixed(2)} km',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: Colors.white,
-                            fontSize: 24,
+                            fontSize:
+                                isSmallScreen
+                                    ? 20
+                                    : isMediumScreen
+                                    ? 22
+                                    : 24,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -197,7 +266,13 @@ class LocationDisplayWidget extends StatelessWidget {
 
           if (startLocation == null && endLocation == null) ...[
             Container(
-              padding: const EdgeInsets.all(20),
+              padding: EdgeInsets.all(
+                isSmallScreen
+                    ? 16
+                    : isMediumScreen
+                    ? 18
+                    : 20,
+              ),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
@@ -218,14 +293,31 @@ class LocationDisplayWidget extends StatelessWidget {
                   Icon(
                     Icons.location_searching,
                     color: Colors.white.withOpacity(0.6),
-                    size: 48,
+                    size:
+                        isSmallScreen
+                            ? 40
+                            : isMediumScreen
+                            ? 44
+                            : 48,
                   ),
-                  const SizedBox(height: 12),
+                  SizedBox(
+                    height:
+                        isSmallScreen
+                            ? 8
+                            : isMediumScreen
+                            ? 10
+                            : 12,
+                  ),
                   Text(
                     'No location data available',
                     style: TextStyle(
                       color: Colors.white.withOpacity(0.8),
-                      fontSize: 16,
+                      fontSize:
+                          isSmallScreen
+                              ? 14
+                              : isMediumScreen
+                              ? 15
+                              : 16,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -234,7 +326,12 @@ class LocationDisplayWidget extends StatelessWidget {
                     'Tap "Start" to begin tracking your journey',
                     style: TextStyle(
                       color: Colors.white.withOpacity(0.6),
-                      fontSize: 14,
+                      fontSize:
+                          isSmallScreen
+                              ? 12
+                              : isMediumScreen
+                              ? 13
+                              : 14,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -252,9 +349,53 @@ class LocationDisplayWidget extends StatelessWidget {
     String value,
     IconData icon,
     List<Color> gradientColors,
+    BuildContext context,
   ) {
+    final screenSize = MediaQuery.of(context).size;
+    final screenWidth = screenSize.width;
+    final isSmallScreen = screenWidth < 360;
+    final isMediumScreen = screenWidth >= 360 && screenWidth < 600;
+
+    // Responsive dimensions for location rows
+    final rowPadding =
+        isSmallScreen
+            ? 12.0
+            : isMediumScreen
+            ? 14.0
+            : 16.0;
+    final iconPadding =
+        isSmallScreen
+            ? 6.0
+            : isMediumScreen
+            ? 7.0
+            : 8.0;
+    final iconSize =
+        isSmallScreen
+            ? 16.0
+            : isMediumScreen
+            ? 18.0
+            : 20.0;
+    final labelFontSize =
+        isSmallScreen
+            ? 10.0
+            : isMediumScreen
+            ? 11.0
+            : 12.0;
+    final valueFontSize =
+        isSmallScreen
+            ? 12.0
+            : isMediumScreen
+            ? 13.0
+            : 14.0;
+    final spacing =
+        isSmallScreen
+            ? 8.0
+            : isMediumScreen
+            ? 10.0
+            : 12.0;
+
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(rowPadding),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: gradientColors,
@@ -273,14 +414,14 @@ class LocationDisplayWidget extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            padding: const EdgeInsets.all(8),
+            padding: EdgeInsets.all(iconPadding),
             decoration: BoxDecoration(
               color: Colors.white.withOpacity(0.2),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(icon, color: Colors.white, size: 20),
+            child: Icon(icon, color: Colors.white, size: iconSize),
           ),
-          const SizedBox(width: 12),
+          SizedBox(width: spacing),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -288,7 +429,7 @@ class LocationDisplayWidget extends StatelessWidget {
                 Text(
                   label,
                   style: TextStyle(
-                    fontSize: 12,
+                    fontSize: labelFontSize,
                     color: Colors.white.withOpacity(0.9),
                     fontWeight: FontWeight.w500,
                   ),
@@ -296,8 +437,8 @@ class LocationDisplayWidget extends StatelessWidget {
                 const SizedBox(height: 2),
                 Text(
                   value,
-                  style: const TextStyle(
-                    fontSize: 14,
+                  style: TextStyle(
+                    fontSize: valueFontSize,
                     fontWeight: FontWeight.w600,
                     color: Colors.white,
                   ),

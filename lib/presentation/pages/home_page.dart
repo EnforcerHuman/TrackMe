@@ -64,61 +64,64 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Location Display
-                  LocationDisplayWidget(
-                    startLocation: locationState.startLocation,
-                    endLocation: locationState.currentLocation,
-                    totalDistance: locationState.totalDistance,
-                    isTracking: locationState.isTracking,
-                  ),
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Location Display
+                    LocationDisplayWidget(
+                      startLocation: locationState.startLocation,
+                      endLocation: locationState.currentLocation,
+                      totalDistance: locationState.totalDistance,
+                      isTracking: locationState.isTracking,
+                    ),
 
-                  const SizedBox(height: 40),
+                    const SizedBox(height: 40),
 
-                  // Tracking Buttons
-                  TrackingButtonsWidget(
-                    isTracking: locationState.isTracking,
-                    isLoading: locationState.isLoading,
-                    onStart:
-                        () => context.read<LocationNotifier>().startTracking(),
-                    onStop:
-                        () => context.read<LocationNotifier>().stopTracking(),
-                  ),
+                    // Tracking Buttons
+                    TrackingButtonsWidget(
+                      isTracking: locationState.isTracking,
+                      isLoading: locationState.isLoading,
+                      onStart:
+                          () =>
+                              context.read<LocationNotifier>().startTracking(),
+                      onStop:
+                          () => context.read<LocationNotifier>().stopTracking(),
+                    ),
 
-                  const SizedBox(height: 40),
+                    const SizedBox(height: 40),
 
-                  // Continue Button (only show when not tracking and has data)
-                  if (!locationState.isTracking &&
-                      locationState.startLocation != null &&
-                      locationState.currentLocation != null)
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () => _navigateToTripDetails(),
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
+                    // Continue Button (only show when not tracking and has data)
+                    if (!locationState.isTracking &&
+                        locationState.startLocation != null &&
+                        locationState.currentLocation != null)
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () => _navigateToTripDetails(),
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
                           ),
-                        ),
-                        child: const Text(
-                          'Continue',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                          child: const Text(
+                            'Continue',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
-                    ),
 
-                  // Error Display
-                  if (locationState.error != null)
-                    LocationError(locationState: locationState),
-                ],
+                    // Error Display
+                    if (locationState.error != null)
+                      LocationError(locationState: locationState),
+                  ],
+                ),
               ),
             ),
           ),
