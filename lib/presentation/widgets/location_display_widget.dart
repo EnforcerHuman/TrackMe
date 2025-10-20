@@ -133,7 +133,7 @@ class LocationDisplayWidget extends StatelessWidget {
             const SizedBox(height: 12),
           ],
 
-          if (totalDistance > 0) ...[
+          if (isTracking || totalDistance > 0) ...[
             Container(
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
